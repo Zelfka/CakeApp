@@ -4,8 +4,8 @@
     <h1>Log In!</h1>
     <p v-if="incorrectAuth">Incorrect username or password</p>
     <form v-on:submit.prevent="login">
-      <input type="text" placeholder="Enter your username" v-model="username">
-      <input type="password" placeholder="Enter you password" v-model="password">
+      <input type="text" placeholder="Enter your username" v-model="username" required>
+      <input type="password" placeholder="Enter your password" v-model="password" required>
       <button type="submit">Submit</button>
     </form>
   </div>
