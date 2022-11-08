@@ -14,6 +14,9 @@ export default new VueRouter({
             path: '/cakes',
             name: 'cakes',
             component: CakesList,
+            meta: {
+                requiresLogin: true
+            }
         },
         {
             path: '/login',

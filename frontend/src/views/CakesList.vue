@@ -28,7 +28,7 @@ export default {
   created() {
     getAPI.get('bake/api/cakes/', {headers: { Authorization: `Bearer ${this.$store.state.accessToken}`}})
         .then(response => {
-          console.log('Post API has received data')
+          console.log('Get API has received data')
           this.$store.state.APIData = response.data
         })
         .catch(err => {
