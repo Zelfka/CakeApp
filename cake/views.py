@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class CakesView(APIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def post(self, request):
         name = request.data.get('name')

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'order',
     'user',
     'rest_framework_simplejwt',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',
+    'http://192.168.0.106:8080'
+]
+
+# CORS_ALLOW_HEADERS = list(default_headers) [
+#     'contenttype',
+# ]
 
 ROOT_URLCONF = 'cakes.urls'
 
