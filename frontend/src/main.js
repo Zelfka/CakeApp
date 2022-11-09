@@ -2,6 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './routes'
 import store from './store.js'
+import IdleVue from 'idle-vue'
+
+const eventsHub = new Vue()
+
+Vue.use(IdleVue, {
+  eventEmitter: eventsHub,
+  idleTime: 1800000
+})
 
 Vue.config.productionTip = false
 

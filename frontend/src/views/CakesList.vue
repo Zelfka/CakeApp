@@ -21,6 +21,12 @@ import {mapState} from 'vuex'
 import NavBar from "@/components/NavBar"
 export default {
   name: "CakesList",
+  onIdle () {
+    this.$store.dispatch('userLogout')
+        .then(() => {
+          this.$router.push({name: 'login'})
+        })
+  },
   components: {
     NavBar
   },
