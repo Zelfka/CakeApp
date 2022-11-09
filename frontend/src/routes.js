@@ -6,6 +6,7 @@ import LogOut from "@/views/LogOut"
 import RegisterUser from "@/views/RegisterUser"
 import UserProfile from "@/views/UserProfile"
 import HomePage from "@/views/HomePage"
+import UpdateProfile from "@/views/UpdateProfile"
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,14 @@ export default new VueRouter({
             path: '/profile/:id',
             name: 'profile',
             component: UserProfile,
+            meta: {
+                requiresLogin: true
+            }
+        },
+        {
+            path: '/profile/:id/update',
+            name: 'update profile',
+            component: UpdateProfile,
             meta: {
                 requiresLogin: true
             }

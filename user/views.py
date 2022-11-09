@@ -77,9 +77,38 @@ class ProfileView(APIView):
     def get(self, request, pk):
 
         if request.user.id != pk:
-            return Response({'detail': 'You are not allowed to see this profile'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'You are not allowed to access this profile'}, status=status.HTTP_400_BAD_REQUEST)
         user = MyUser.objects.filter(pk=pk).first()
         if user is None:
             return Response({'detail': 'No such profile found, wrong id.'}, status=status.HTTP_400_BAD_REQUEST)
         serializer = ProfileResponseSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+
+        if request.user.id != pk:
+            return Response({'detail': 'You are not allowed to access this profile'}, status=status.HTTP_400_BAD_REQUEST)
+        user = MyUser.objects.filter(pk=pk).first()
+        if user is None:
+            return Response({'detail': 'No such profile found, wrong id.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        email = request.data.get('email')
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        street = request.data.get('street')
+        city = request.data.get('city')
+        zip_code = request.data.get('zip_code')
+        phone = request.data.get('phone')
+
+        user.email = email
+        user.first_name = first_name
+        user.last_name = last_name
+        user.street = street
+        user.city = city
+        user.zip_code = zip_code
+        user.phone = phone
+
+        user.save()
+        serializer = ProfileResponseSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
