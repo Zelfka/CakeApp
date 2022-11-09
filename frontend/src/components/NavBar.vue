@@ -8,7 +8,9 @@
         <button type="button">Push me</button>
         <div>
           <ul>
-            <li><router-link to="cakes">Cakes</router-link></li>
+            <li><router-link :to="'/'">Home</router-link></li>
+            <li v-if="accessToken != null"><router-link to="logout">Logout</router-link></li>
+            <li v-if="accessToken == null"><router-link to="login">Login</router-link></li>
           </ul>
         </div>
       </div>
@@ -17,8 +19,11 @@
 </template>
 
 <script>
+import {mapState} from "vuex"
+
 export default {
-  name: "NavBar"
+  name: "NavBar",
+  computed: mapState(['accessToken'])
 }
 </script>
 

@@ -1,7 +1,8 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <h1>{{APIData.username}}'s profile</h1>
+    <h1 v-if="APIData.username">{{APIData.username}}'s profile</h1>
+    <p v-if="error">{{error}}</p>
   </div>
 </template>
 
@@ -28,7 +29,7 @@ export default {
   },
   computed: mapState(['APIData']),
   created() {
-    getAPI.get('api/profile/' + this.$store.state.id + '/', {headers: { Authorization: `Bearer ${this.$store.state.accessToken}`}})
+    getAPI.get('api/profile/' + this.$route.params.id + '/', {headers: { Authorization: `Bearer ${this.$store.state.accessToken}`}})
         .then(response => {
           console.log('Get API has received data')
           this.$store.state.APIData = response.data

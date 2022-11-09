@@ -75,8 +75,11 @@ class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
+
+        if request.user.id != pk:
+            return Response({'detail': 'You are not allowed to see this profile'}, status=status.HTTP_400_BAD_REQUEST)
         user = MyUser.objects.filter(pk=pk).first()
         if user is None:
-            return Response({'detail': 'No such profile found, wrong id.'})
+            return Response({'detail': 'No such profile found, wrong id.'}, status=status.HTTP_400_BAD_REQUEST)
         serializer = ProfileResponseSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)

@@ -1,6 +1,7 @@
 <template>
 <div>
   <div>
+    <NavBar></NavBar>
     <h1>Log In!</h1>
     <p v-if="error">{{error}}</p>
     <form v-on:submit.prevent="login">
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+import NavBar from "@/components/NavBar"
 export default {
   name: "LogIn",
   data(){
@@ -22,6 +24,9 @@ export default {
       incorrectAuth: false,
       error: ''
     }
+  },
+  components: {
+    NavBar
   },
   methods:{
     login(){
