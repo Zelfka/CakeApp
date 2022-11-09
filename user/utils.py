@@ -1,4 +1,6 @@
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from .models import MyUser
 
 
 def get_data(request):
@@ -17,3 +19,16 @@ def generate_token(user):
         'refresh': str(refresh),
         'access': str(refresh.access_token),
     }
+
+
+def check_if_logged_in_user_is_the_same_user(request, pk):
+    if request.user.id != pk:
+        response = Response()
+        response.status_code = 400
+        response.data = {'detail': 'You are not allowed to access this profile'}
+        return response
+
+
+def find_user_by_id(pk):
+    user = MyUser.objects.filter(pk=pk).first()
+    return user

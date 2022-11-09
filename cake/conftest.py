@@ -2,7 +2,7 @@ import pytest
 from django.urls import reverse
 from user.models import MyUser
 from .models import Order
-from cake.models import Cake, PriceList
+from cake.models import Cake
 from rest_framework.test import APIClient
 
 
@@ -54,18 +54,4 @@ def authenticate_user(login_user):
     yield client
 
 
-@pytest.fixture
-def create_pricelist(authenticate_user):
-    client = authenticate_user
-    url = reverse('price_list')
-    data = {
-        "sachr": 700,
-        "schwarzwald": 600,
-        "chocolate": 650,
-        "vanilla": 680,
-        "fruit": 750,
-        "cheesecake": 700,
-        "carrot": 650,
-        "pumpkin": 670
-    }
-    client.post(url, data, format='json')
+

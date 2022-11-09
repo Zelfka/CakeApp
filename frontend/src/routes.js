@@ -7,6 +7,8 @@ import RegisterUser from "@/views/RegisterUser"
 import UserProfile from "@/views/UserProfile"
 import HomePage from "@/views/HomePage"
 import UpdateProfile from "@/views/UpdateProfile"
+import OneCake from "@/views/OneCake"
+import CakesByOrder from "@/views/CakesByOrder"
 
 Vue.use(VueRouter)
 
@@ -28,6 +30,14 @@ export default new VueRouter({
             }
         },
         {
+            path: '/cakes/:id',
+            name: 'one cake',
+            component: OneCake,
+            meta: {
+                requiresLogin: true
+            }
+        },
+        {
             path: '/profile/:id',
             name: 'profile',
             component: UserProfile,
@@ -39,6 +49,14 @@ export default new VueRouter({
             path: '/profile/:id/update',
             name: 'update profile',
             component: UpdateProfile,
+            meta: {
+                requiresLogin: true
+            }
+        },
+         {
+            path: '/order/:order_id',
+            name: 'user order',
+            component: CakesByOrder,
             meta: {
                 requiresLogin: true
             }

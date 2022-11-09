@@ -18,7 +18,6 @@
 
 <script>
 import {getAPI} from "@/axios-api"
-import {mapState} from "vuex"
 import NavBar from "@/components/NavBar"
 
 export default {
@@ -26,7 +25,6 @@ export default {
   components: {
     NavBar
   },
-   computed: mapState(['APIData']),
   data () {
     return {
       email: '',
@@ -39,11 +37,16 @@ export default {
       error: ''
     }
   },
+  onIdle () {
+    this.$store.dispatch('userLogout')
+        .then(() => {
+          this.$router.push({name: 'login'})
+        })
+  },
   created() {
       getAPI.get('api/profile/' + this.$route.params.id + '/', {headers: { Authorization: `Bearer ${this.$store.state.accessToken}`}})
           .then(response => {
             console.log('Get API has received data')
-            this.$store.state.APIData = response.data
             this.email = response.data.email
             this.firstName = response.data.first_name
             this.lastName = response.data.last_name

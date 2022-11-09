@@ -4,7 +4,7 @@ from rest_framework import status
 from .models import MyUser
 from .serializers import MyUserRequestRegistrationSerializer, MyUserResponseRegistrationSerializer, \
     ProfileResponseSerializer
-from .utils import generate_token, get_data
+from .utils import generate_token, get_data, check_if_logged_in_user_is_the_same_user,find_user_by_id
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.permissions import IsAuthenticated
 
@@ -75,20 +75,20 @@ class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
-
-        if request.user.id != pk:
-            return Response({'detail': 'You are not allowed to access this profile'}, status=status.HTTP_400_BAD_REQUEST)
-        user = MyUser.objects.filter(pk=pk).first()
+        response = check_if_logged_in_user_is_the_same_user(request, pk)
+        if response:
+            return response
+        user = find_user_by_id(pk)
         if user is None:
             return Response({'detail': 'No such profile found, wrong id.'}, status=status.HTTP_400_BAD_REQUEST)
         serializer = ProfileResponseSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):
-
-        if request.user.id != pk:
-            return Response({'detail': 'You are not allowed to access this profile'}, status=status.HTTP_400_BAD_REQUEST)
-        user = MyUser.objects.filter(pk=pk).first()
+        response = check_if_logged_in_user_is_the_same_user(request, pk)
+        if response:
+            return response
+        user = find_user_by_id(pk)
         if user is None:
             return Response({'detail': 'No such profile found, wrong id.'}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -1,16 +1,13 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <h1>Cakes to come!!</h1>
+    <h1>Best cakes ever</h1>
     <div v-for="cake in APIData" :key="cake.id">
       <p>{{cake.name}}</p>
-      <img :src="`/img/`+ cake.img" width=100 height=100 alt="picture">
-      <img :src="`/img/fox.ad5cb41c.png`" width=100 height=100 alt="picture">
-      <img src="../assets/fox.png"   width=100 height=100 alt="picture">
+<!--      <img :src="`/img/fox.ad5cb41c.png`" width=100 height=100 alt="picture">-->
+<!--      <img src="../assets/fox.png"   width=100 height=100 alt="picture">-->
       <p>{{cake.description}}</p>
-      <p>Eggs free: {{cake.eggs_free}}</p>
-      <p>Milk free: {{cake.milk_free}}</p>
-      <p>Price: {{cake.price}}</p>
+      <router-link :to="'/cakes/' + cake.id"><img :src="`/img/`+ cake.img" width=100 height=100 alt="picture"></router-link>
     </div>
   </div>
 </template>

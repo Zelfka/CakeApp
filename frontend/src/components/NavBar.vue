@@ -2,15 +2,17 @@
   <div class="nav-bar">
     <nav>
       <div class="container">
-        <a href="#">
+        <router-link :to="'/'">
            <img src="../assets/fox.png" width="200" height="200">
-        </a>
-        <button type="button">Push me</button>
+        </router-link>
         <div>
           <ul>
             <li><router-link :to="'/'">Home</router-link></li>
-            <li v-if="accessToken != null"><router-link to="logout">Logout</router-link></li>
-            <li v-if="accessToken == null"><router-link to="login">Login</router-link></li>
+            <li v-if="accessToken != null"><router-link to="/logout">Logout</router-link></li>
+            <li v-if="accessToken != null"><router-link :to="'/profile/' + this.$store.state.id">Profile</router-link></li>
+            <li v-if="accessToken != null"><router-link :to="'/cakes/'">Cakes</router-link></li>
+            <li v-if="accessToken != null"><router-link :to="'/pricelist/'">Price list</router-link></li>
+            <li v-if="accessToken == null"><router-link to="/login">Login</router-link></li>
           </ul>
         </div>
       </div>

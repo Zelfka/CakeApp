@@ -14,17 +14,3 @@ class Cake(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class PriceList(models.Model):
-    sachr_cake = models.IntegerField(default=0)
-    schwarzwald_cake = models.IntegerField(default=0)
-    chocolate_cake = models.IntegerField(default=0)
-    vanilla_cake = models.IntegerField(default=0)
-    fruit_cake = models.IntegerField(default=0)
-    cheesecake = models.IntegerField(default=0)
-    carrot_cake = models.IntegerField(default=0)
-    pumpkin_cake = models.IntegerField(default=0)
-
-    def __str__(self):
-        return f'Price list with id {self.pk}'
