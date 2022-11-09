@@ -4,6 +4,7 @@ import CakesList from './views/CakesList'
 import LogIn from "@/views/LogIn"
 import LogOut from "@/views/LogOut"
 import RegisterUser from "@/views/RegisterUser"
+import UserProfile from "@/views/UserProfile"
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,14 @@ export default new VueRouter({
             path: '/cakes',
             name: 'cakes',
             component: CakesList,
+            meta: {
+                requiresLogin: true
+            }
+        },
+        {
+            path: '/profile/:id',
+            name: 'profile',
+            component: UserProfile,
             meta: {
                 requiresLogin: true
             }

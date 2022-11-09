@@ -8,16 +8,19 @@ export default new Vuex.Store({
     state: {
         accessToken: null,
         refreshToken: null,
-        APIData: ''
+        APIData: '',
+        id: null
     },
     mutations: {
-        updateStorage(state, { access, refresh}){
+        updateStorage(state, { access, refresh, id}){
             state.accessToken = access
             state.refreshToken = refresh
+            state.id = id
         },
         destroyToken (state) {
             state.accessToken = null
             state.refreshToken = null
+            state.id = null
         }
     },
     getters: {
@@ -34,11 +37,10 @@ export default new Vuex.Store({
                     password: credentials.password
                 })
                     .then(response => {
-                        context.commit('updateStorage', {access: response.data.access, refresh: response.data.refresh})
+                        context.commit('updateStorage', {access: response.data.access, refresh: response.data.refresh, id: response.data.id})
                         resolve()
                     })
                     .catch(err => {
-                        // console.log(err.response.data.detail)
                         reject(err.response.data.detail)
                     })
             })
