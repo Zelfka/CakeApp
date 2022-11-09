@@ -27,7 +27,8 @@ class RegisterView(APIView):
 
         user_instance = MyUser.objects.filter(username=username).first()
         if user_instance:
-            return Response({'detail': 'User with this username already exists, please choose different one'})
+            return Response({'detail': 'User with this username already exists, please choose different one'},
+                            status=status.HTTP_400_BAD_REQUEST)
 
         serializer = MyUserRequestRegistrationSerializer(data=data)
         if serializer.is_valid():

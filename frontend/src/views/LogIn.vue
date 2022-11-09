@@ -2,7 +2,7 @@
 <div>
   <div>
     <h1>Log In!</h1>
-    <p v-if="incorrectAuth">Incorrect username or password</p>
+    <p v-if="error">{{error}}</p>
     <form v-on:submit.prevent="login">
       <input type="text" placeholder="Enter your username" v-model="username" required>
       <input type="password" placeholder="Enter your password" v-model="password" required>
@@ -19,7 +19,8 @@ export default {
     return{
       username: '',
       password: '',
-      incorrectAuth: false
+      incorrectAuth: false,
+      error: ''
     }
   },
   methods:{
@@ -33,7 +34,7 @@ export default {
           })
           .catch(err => {
             console.log(err)
-            this.incorrectAuth = true
+            this.error = err
           })
     }
   }

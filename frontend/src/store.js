@@ -28,7 +28,7 @@ export default new Vuex.Store({
     plugins: [createPersistedState()],
     actions: {
         userLogin (context, credentials) {
-            return new Promise(resolve => {
+            return new Promise((resolve, reject) => {
                 getAPI.post('api/login/', {
                     username: credentials.username,
                     password: credentials.password
@@ -36,6 +36,10 @@ export default new Vuex.Store({
                     .then(response => {
                         context.commit('updateStorage', {access: response.data.access, refresh: response.data.refresh})
                         resolve()
+                    })
+                    .catch(err => {
+                        // console.log(err.response.data.detail)
+                        reject(err.response.data.detail)
                     })
             })
         },
@@ -54,7 +58,6 @@ export default new Vuex.Store({
                 } else {
                     resolve()
                 }
-
             })
         }
     }
