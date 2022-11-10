@@ -3,6 +3,7 @@ import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient
 
+
 @pytest.mark.django_db
 def test_get_all_cakes(authenticate_user, create_cake):
     client = authenticate_user
@@ -51,36 +52,27 @@ def test_create_cake_without_name(authenticate_user):
 @pytest.mark.django_db
 def test_get_one_cake(authenticate_user, create_cake):
     client = authenticate_user
-    url = reverse('one_cake', kwargs={'cake':'Cake'})
+    url = reverse('one_cake', kwargs={'cake': 'Cake'})
     response = client.get(url, format='json')
     data = json.loads(response.content)
     assert response.status_code == 200
     assert data.get('name') == 'Cake'
-
-
-@pytest.mark.django_db
-def test_get_cake_by_order(authenticate_user, create_cake):
-    client = authenticate_user
-    url = reverse('cake_order', kwargs={'order_id': 1})
-    response = client.get(url, format='json')
-    data = json.loads(response.content)
-    assert response.status_code == 200
-    assert data[0].get('name') == 'Cake'
 
 
 def test_get_change_cake(admin_user, create_cake):
     client = APIClient()
     client.force_authenticate(admin_user)
-    url = reverse('cake_update', kwargs={'pk':1})
+    url = reverse('cake_update', kwargs={'pk': 1})
     response = client.get(url, format='json')
     data = json.loads(response.content)
     assert response.status_code == 200
     assert data.get('name') == 'Cake'
 
+
 @pytest.mark.django_db
 def test_get_change_cake_normal_user(authenticate_user, create_cake):
     client = authenticate_user
-    url = reverse('cake_update', kwargs={'pk':1})
+    url = reverse('cake_update', kwargs={'pk': 1})
     response = client.get(url, format='json')
     assert response.status_code == 403
 
@@ -91,9 +83,10 @@ def test_update_cake(admin_user, create_cake):
     data = {
         'name': 'New Cake'
     }
-    url = reverse('cake_update', kwargs={'pk':1})
+    url = reverse('cake_update', kwargs={'pk': 1})
     response = client.put(url, data, format='json')
     assert response.status_code == 200
+
 
 @pytest.mark.django_db
 def test_update_cake(authenticate_user, create_cake):
@@ -101,6 +94,6 @@ def test_update_cake(authenticate_user, create_cake):
     data = {
         'name': 'New Cake'
     }
-    url = reverse('cake_update', kwargs={'pk':1})
+    url = reverse('cake_update', kwargs={'pk': 1})
     response = client.put(url, data, format='json')
     assert response.status_code == 403

@@ -64,7 +64,7 @@ export default {
         price: this.price
       }, {headers: {Authorization: `Bearer ${this.$store.state.accessToken}`}})
           .then(() => {
-            this.$router.go(0)
+            this.$router.push('/cakes')
           })
           .catch(err => {
             if(err.response.data){

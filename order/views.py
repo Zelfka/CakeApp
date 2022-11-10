@@ -17,23 +17,28 @@ class OrdersView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        date = request.data.get('date')
-        details = request.data.get('details')
-        cake_name = request.data.get('cake_name')
-        user_id = request.data.get('id')
-
-        user_instance = MyUser.objects.filter(pk=user_id).first()
-        cake = Cake.objects.filter(name=cake_name).first()
-
-        if user_instance is None:
-            return Response({'detail': 'Wrong user id.'}, status=status.HTTP_400_BAD_REQUEST)
+        cake_id = request.data.get('cake_id')
+        cake = Cake.objects.filter(pk=cake_id).first()
 
         if cake is None:
             return Response({'detail': 'No such cake found.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        order = Order.objects.create(booked_date=date, details=details, user=user_instance)
-        cake.order = order
-        cake.save()
-
+        order = Order.objects.filter(user=request.user).last()
+        if order is None or order.finished is True:
+            order = Order.objects.create(user=request.user)
+        order.cakes.add(cake)
         serializer = OrderSerializer(order)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request):
+        date = request.data.get('date')
+        details = request.data.get('details')
+        order = Order.objects.filter(user=request.user).first()
+        if order is None:
+            return Response({'detail': 'No such order for this user exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+        order.finished = True
+        order.date = date
+        order.details = details
+        order.save()
+        return Response({'detail': 'Thank you for you order'}, status=status.HTTP_200_OK)

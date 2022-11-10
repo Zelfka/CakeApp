@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import MyUser
+from cake.models import Cake
 
 
 class Order(models.Model):
@@ -7,6 +8,8 @@ class Order(models.Model):
     booked_date = models.DateField(null=True)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     details = models.CharField(max_length=500, null=True)
+    finished = models.BooleanField(default=False)
+    cakes = models.ManyToManyField(Cake)
 
     def __str__(self):
         return self.user.username + '\' order'

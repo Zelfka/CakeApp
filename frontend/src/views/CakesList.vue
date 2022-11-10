@@ -4,10 +4,10 @@
     <h1>Best cakes ever</h1>
     <div v-for="cake in APIData" :key="cake.id">
       <p>{{cake.name}}</p>
-<!--      <img :src="`/img/fox.ad5cb41c.png`" width=100 height=100 alt="picture">-->
-<!--      <img src="../assets/fox.png"   width=100 height=100 alt="picture">-->
       <p>{{cake.description}}</p>
       <p>{{cake.price}}</p>
+      <button v-if="admin === true"><router-link :to="'/cakes/admin/update/' + cake.id">Update</router-link></button>
+      <button v-on:click="add(cake.id)">Add to basket</button>
       <router-link :to="'/cakes/' + cake.id"><img :src="`/img/`+ cake.img" width=100 height=100 alt="picture"></router-link>
     </div>
   </div>
@@ -25,10 +25,15 @@ export default {
           this.$router.push({name: 'login'})
         })
   },
+  data(){
+    return {
+      error: ''
+    }
+  },
   components: {
     NavBar
   },
-  computed: mapState(['APIData']),
+  computed: mapState(['APIData', 'admin']),
   created() {
     getAPI.get('bake/api/cakes/', {headers: { Authorization: `Bearer ${this.$store.state.accessToken}`}})
         .then(response => {
@@ -38,6 +43,19 @@ export default {
         .catch(err => {
           console.log(err)
         })
+  },
+  methods: {
+    add(id) {
+      getAPI.post('order/api/orders/', {
+        cake_id: id
+      }, {headers: {Authorization: `Bearer ${this.$store.state.accessToken}`}})
+          .then(() => {
+            this.$router.go(0)
+          })
+          .catch((err) => {
+            this.error = err.response.data.detail
+          } )
+    }
   }
 }
 </script>

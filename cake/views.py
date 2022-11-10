@@ -46,23 +46,6 @@ class OneCakeView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class CakesByOrder(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, order_id):
-        order = Order.objects.filter(pk=order_id).first()
-        if order is None:
-            return Response({'detail': 'No such order found'}, status=status.HTTP_400_BAD_REQUEST)
-        if request.user != order.user:
-            return Response({'detail': 'You are not allowed to see details of this order.'},
-                            status=status.HTTP_400_BAD_REQUEST)
-        cakes = Cake.objects.filter(order=order)
-        if len(cakes) == 0:
-            return Response({'detail': 'This order is empty.'}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = CakeSerializer(cakes, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 class ChangeCake(APIView):
     permission_classes = [IsAdminUser]
 

@@ -1,5 +1,4 @@
 from django.db import models
-from order.models import Order
 
 
 class Cake(models.Model):
@@ -8,7 +7,6 @@ class Cake(models.Model):
     description = models.CharField(max_length=300, null=True)
     milk_free = models.BooleanField(default=False)
     eggs_free = models.BooleanField(default=False)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     img = models.CharField(max_length=200, default='fox.ad5cb41c.png')
 
 
