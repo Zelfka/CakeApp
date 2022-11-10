@@ -20,7 +20,9 @@ def test_create_cake(authenticate_user):
     data = {
         'name': 'Sachr',
         'description': 'Old fashioned cake',
-        'milk_free': True
+        'milk_free': True,
+        'eggs_free': False,
+        'price': 320
     }
     response = client.post(url, data, format='json')
     data = json.loads(response.content)

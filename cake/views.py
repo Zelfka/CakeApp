@@ -20,12 +20,10 @@ class CakesView(APIView):
         if name is None or description is None:
             return Response({'detail': 'Name and description have to be filled out.'},
                             status=status.HTTP_400_BAD_REQUEST)
-        cake = Cake.objects.create(name=name, description=description, price=price)
-        if milk_free:
-            cake.milk_free = milk_free
-        if eggs_free:
-            cake.eggs_free = eggs_free
-        cake.save()
+        if len(name) < 5 or len(description) < 10:
+            return Response({'detail': 'Name has to be at least 4 characters long and description has to be at least 9 charachters long.'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        cake = Cake.objects.create(name=name, description=description, price=price, milk_free=milk_free, eggs_free=eggs_free)
         serializer = CakeSerializer(cake)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

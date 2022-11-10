@@ -7,6 +7,7 @@
 <!--      <img :src="`/img/fox.ad5cb41c.png`" width=100 height=100 alt="picture">-->
 <!--      <img src="../assets/fox.png"   width=100 height=100 alt="picture">-->
       <p>{{cake.description}}</p>
+      <p>{{cake.price}}</p>
       <router-link :to="'/cakes/' + cake.id"><img :src="`/img/`+ cake.img" width=100 height=100 alt="picture"></router-link>
     </div>
   </div>
