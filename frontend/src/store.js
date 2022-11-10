@@ -10,22 +10,28 @@ export default new Vuex.Store({
         refreshToken: null,
         APIData: '',
         id: null,
+        admin: false
     },
     mutations: {
-        updateStorage(state, { access, refresh, id}){
+        updateStorage(state, { access, refresh, id, admin}){
             state.accessToken = access
             state.refreshToken = refresh
             state.id = id
+            state.admin = admin
         },
         destroyToken (state) {
             state.accessToken = null
             state.refreshToken = null
             state.id = null
+            state.admin = false
         }
     },
     getters: {
         loggedIn (state) {
             return state.accessToken != null
+        },
+        adminUser (state) {
+            return state.admin === true
         }
     },
     plugins: [createPersistedState()],
@@ -37,7 +43,7 @@ export default new Vuex.Store({
                     password: credentials.password
                 })
                     .then(response => {
-                        context.commit('updateStorage', {access: response.data.access, refresh: response.data.refresh, id: response.data.id})
+                        context.commit('updateStorage', {access: response.data.access, refresh: response.data.refresh, id: response.data.id, admin: response.data.admin})
                         resolve()
                     })
                     .catch(err => {

@@ -60,7 +60,8 @@ class LoginView(APIView):
             'refresh': tokens.get('refresh'),
             'access': tokens.get('access'),
             'id': user_instance.pk,
-            'username': user_instance.username
+            'username': user_instance.username,
+            'admin': user_instance.is_staff
         }, status=status.HTTP_200_OK)
 
 

@@ -24,6 +24,17 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some( record => record.meta.isAdmin)) {
+    if (!store.getters.adminUser) {
+      next ( {name: 'home'})
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 new Vue({
   router,
   store,

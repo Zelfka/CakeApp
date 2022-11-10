@@ -21,6 +21,12 @@ import {getAPI} from "@/axios-api"
 import NavBar from "@/components/NavBar"
 export default {
   name: "CreateCake",
+   onIdle () {
+    this.$store.dispatch('userLogout')
+        .then(() => {
+          this.$router.push({name: 'login'})
+        })
+  },
   data () {
     return {
       name:'',

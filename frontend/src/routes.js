@@ -10,6 +10,7 @@ import UpdateProfile from "@/views/UpdateProfile"
 import OneCake from "@/views/OneCake"
 import CakesByOrder from "@/views/CakesByOrder"
 import CreateCake from "@/views/CreateCake"
+import UpdateCake from "@/views/UpdateCake"
 
 Vue.use(VueRouter)
 
@@ -43,7 +44,17 @@ export default new VueRouter({
             name: 'create cake',
             component: CreateCake,
             meta: {
-                requiresLogin: true
+                requiresLogin: true,
+                isAdmin: true
+            }
+        },
+        {
+            path: '/cakes/admin/update/:id',
+            name: 'update cake',
+            component: UpdateCake,
+            meta: {
+                requiresLogin: true,
+                isAdmin: true
             }
         },
         {
