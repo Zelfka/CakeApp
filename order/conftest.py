@@ -31,15 +31,18 @@ def login_user(client, create_user):
 
 
 @pytest.fixture
-def create_orders(login_user):
-    user = login_user
-    Order.objects.create(user=user, details='for 10 people')
-    Order.objects.create(user=user)
+def create_cake():
+    cake = Cake.objects.create(name='Cake', description='Yummy cake', price=700)
+    yield cake
+
 
 @pytest.fixture
-def create_cake():
-    Cake.objects.create(name='Cake', description='Yummy cake')
-
+def create_order(login_user, create_cake):
+    user = login_user
+    oder = Order.objects.create(user=user, details='for 10 people')
+    cake= create_cake
+    oder.cakes.add(cake)
+    oder.save()
 
 @pytest.fixture
 def authenticate_user(login_user):

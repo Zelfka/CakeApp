@@ -10,3 +10,4 @@ psycopg2==2.9.5
 djangorestframework-simplejwt
 pytest==7.2.0
 django-cors-headers
+addict==2.4.0

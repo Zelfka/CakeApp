@@ -7,6 +7,7 @@ from cake.serializers import CakeSerializer
 class OrderSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     cakes = CakeSerializer(many=True)
+
     class Meta:
         model = Order
-        fields = ['id', 'created', 'booked_date', 'user', 'details', 'finished', 'cakes']
+        fields = ['id', 'created', 'booked_date', 'user', 'details', 'finished', 'cakes', 'sum_cakes', 'total_price']
