@@ -50,6 +50,7 @@ export default {
         cake_id: id
       }, {headers: {Authorization: `Bearer ${this.$store.state.accessToken}`}})
           .then(() => {
+            console.log('POST API has received data')
             this.$router.go(0)
           })
           .catch((err) => {

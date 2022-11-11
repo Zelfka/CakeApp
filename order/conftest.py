@@ -5,6 +5,7 @@ from .models import Order
 from cake.models import Cake
 from rest_framework.test import APIClient
 
+
 @pytest.fixture
 def create_user(client):
     url = reverse('register')
@@ -26,7 +27,7 @@ def login_user(client, create_user):
         'username': 'Veronika',
         'password': '123456pass'
     }
-    client.post(url,data, format='json')
+    client.post(url, data, format='json')
     yield create_user
 
 
@@ -40,9 +41,10 @@ def create_cake():
 def create_order(login_user, create_cake):
     user = login_user
     oder = Order.objects.create(user=user, details='for 10 people')
-    cake= create_cake
+    cake = create_cake
     oder.cakes.add(cake)
     oder.save()
+
 
 @pytest.fixture
 def authenticate_user(login_user):

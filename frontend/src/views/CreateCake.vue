@@ -50,6 +50,7 @@ export default {
           price: this.price
       }, { headers: {Authorization: `Bearer ${this.$store.state.accessToken}`}})
           .then(() => {
+            console.log('POST API has received data')
             this.$router.push('/cakes')
           })
           .catch(err => {

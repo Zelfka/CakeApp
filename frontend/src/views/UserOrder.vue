@@ -31,6 +31,12 @@ import {getAPI} from "@/axios-api"
 import {mapState} from "vuex"
 export default {
   name: "UserOrder",
+   onIdle () {
+    this.$store.dispatch('userLogout')
+        .then(() => {
+          this.$router.push({name: 'login'})
+        })
+  },
   data (){
     return {
       error: '',
@@ -51,6 +57,7 @@ export default {
           this.$store.state.APIData = response.data
           this.cakes = response.data.cakes
           this.username = response.data.user.username
+          console.log('GET API has received data')
         })
         .catch(err => {
           this.error = err.response.data.detail
@@ -64,6 +71,7 @@ export default {
       }, {headers: {Authorization: `Bearer ${this.$store.state.accessToken}`}})
           .then(response => {
             this.success = response.data.detail
+            console.log('PUT API has received data')
             this.$router.go(0)
           })
           .catch(err => {
@@ -73,6 +81,7 @@ export default {
     remove(id) {
       getAPI.delete('order/api/orders/' + id + '/', {headers: {Authorization: `Bearer ${this.$store.state.accessToken}`}})
           .then(() => {
+            console.log('DELETE API has received data')
             this.$router.go(0)
           })
           .catch(err => (

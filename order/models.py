@@ -12,6 +12,7 @@ class Order(models.Model):
     cakes = models.ManyToManyField(Cake)
     sum_cakes = models.IntegerField(default=0)
     total_price = models.IntegerField(default=0)
+    state = models.CharField(max_length=20, default='Open')
 
     def __str__(self):
         return self.user.username + '\' order'

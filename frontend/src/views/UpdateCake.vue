@@ -49,6 +49,7 @@ export default {
           this.milkFree = response.data.milk_free
           this.eggFree = response.data.eggs_free
           this.price = response.data.price
+          console.log('GET API has received data')
         })
         .catch(err => {
           this.error = err.response.data.detail
@@ -64,6 +65,7 @@ export default {
         price: this.price
       }, {headers: {Authorization: `Bearer ${this.$store.state.accessToken}`}})
           .then(() => {
+            console.log('PUT API has received data')
             this.$router.push('/cakes')
           })
           .catch(err => {

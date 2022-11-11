@@ -11,6 +11,7 @@ import OneCake from "@/views/OneCake"
 import CreateCake from "@/views/CreateCake"
 import UpdateCake from "@/views/UpdateCake"
 import UserOrder from "@/views/UserOrder"
+import ALLOrders from "@/views/ALLOrders";
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,15 @@ export default new VueRouter({
             component: UserOrder,
             meta: {
                 requiresLogin: true,
+            }
+        },
+         {
+            path: '/order/admin',
+            name: 'orders',
+            component: ALLOrders,
+            meta: {
+                requiresLogin: true,
+                isAdmin: true
             }
         },
         {

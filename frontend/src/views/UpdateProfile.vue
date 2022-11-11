@@ -70,6 +70,7 @@ export default {
         phone: this.phone
       }, {headers: {Authorization: `Bearer ${this.$store.state.accessToken}`}})
           .then(() => {
+            console.log('PUT API has received data')
             this.$router.push('/profile/' + this.$route.params.id)
           })
           .catch(err => {

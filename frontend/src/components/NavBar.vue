@@ -13,6 +13,7 @@
             <li v-if="accessToken != null"><router-link :to="'/cakes/'">Cakes</router-link></li>
             <li v-if="accessToken != null"><router-link :to="'/order'">Basket</router-link></li>
             <li v-if="accessToken != null && admin !== false"><router-link :to="'/cakes/admin/add'">Add new cake</router-link></li>
+            <li v-if="accessToken != null && admin !== false"><router-link :to="'/order/admin'">Manage orders</router-link></li>
             <li v-if="accessToken  == null"><router-link to="/login">Login</router-link></li>
           </ul>
         </div>
