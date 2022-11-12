@@ -213,4 +213,7 @@ p{
 .headers{
   margin-bottom: 85px;
 }
+a:hover{
+  color: #dd9add;
+}
 </style>
