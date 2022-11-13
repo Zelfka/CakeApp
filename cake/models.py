@@ -7,7 +7,7 @@ class Cake(models.Model):
     description = models.CharField(max_length=300, null=True)
     milk_free = models.BooleanField(default=False)
     eggs_free = models.BooleanField(default=False)
-    img = models.CharField(max_length=200, default='fox.ad5cb41c.png')
+    img = models.CharField(max_length=200, default='IMG_2933.2f5e737a.jpg')
 
 
     def __str__(self):

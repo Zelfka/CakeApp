@@ -37,10 +37,11 @@
         <h3>{{cake.name}}</h3>
         <p>{{cake.description}}</p>
         <p>Price: {{cake.price}} CZK</p>
-        <button v-if="admin === true"><router-link :to="'/cakes/admin/update/' + cake.id">Update</router-link></button>
         <router-link :to="'/cakes/' + cake.id"><img :src="`/img/`+ cake.img" alt="picture"></router-link>
         <button v-on:click="add(cake.id)">+</button>
+        <button v-if="admin === true" id="button"><router-link :to="'/cakes/admin/update/' + cake.id">&#9998;</router-link></button>
       </div>
+
       </div>
     </div>
   </div>
@@ -97,7 +98,7 @@ export default {
 <style scoped>
 #container{
   width: 100%;
-  height: 170%;
+  min-height: 170%;
   position: absolute;
   z-index: -1;
   background: #232526;  /* fallback for old browsers */
@@ -137,19 +138,22 @@ img{
   border-radius: 2px;
 }
 button{
-  background-color: rgba(0, 0, 0, 0.22);
+  vertical-align: middle;
   width: 50px;
   height: 50px;
   border-radius: 50%;
   border: 0;
-  color: white;
+  color: black;
   font-size: xx-large;
+  background: rgb(221,154,221);
+  background: radial-gradient(circle, rgba(221,154,221,1) 0%, rgba(249,250,251,1) 45%, rgba(0,0,0,1) 100%);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
 }
 button:hover{
-  color: #dd9add;
+  color: white;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 .background{
   position: absolute;
@@ -167,5 +171,18 @@ button:hover{
   font-weight: bold;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   font-size: large;
+}
+a{
+  text-decoration: none;
+  color: black;
+  vertical-align: middle;
+}
+a:hover{
+  color: white;
+}
+#button{
+  background-color: lightseagreen;
+  transform: scaleX(-1);
+  margin-left: 5px;
 }
 </style>

@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './routes'
 import store from './store.js'
 import IdleVue from 'idle-vue'
-
+import moment from 'moment'
 const eventsHub = new Vue()
 
 Vue.use(IdleVue, {
@@ -12,7 +12,7 @@ Vue.use(IdleVue, {
 })
 
 Vue.config.productionTip = false
-
+Vue.prototype.moment = moment
 router.beforeEach((to, from, next) => {
   if (to.matched.some( record => record.meta.requiresLogin)) {
     if (!store.getters.loggedIn) {
