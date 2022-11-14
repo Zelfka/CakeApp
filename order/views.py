@@ -79,7 +79,7 @@ class AdminOrdersView(APIView):
 
         if username:
             for order in orders:
-                if username in order.user.username:
+                if username.lower() in order.user.username.lower():
                     orders_resp.append(order)
             if len(orders_resp) == 0:
                 return Response({'detail': 'No orders with this username exist.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -94,7 +94,7 @@ class AdminOrdersView(APIView):
         if name:
             for order in orders:
                 for cake in order.cakes.all():
-                    if name in cake.name:
+                    if name.lower() in cake.name.lower():
                         orders_resp.append(order)
             if len(orders_resp) == 0:
                 return Response({'detail': 'No orders with this cake exist.'}, status=status.HTTP_400_BAD_REQUEST)

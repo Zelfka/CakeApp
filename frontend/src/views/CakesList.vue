@@ -18,31 +18,24 @@
     milk eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
     eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
     milk flour oil sugar oil sugar cocoa cream chocolate fruit caramel eggs milk milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
-    milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
-    eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
-    fruit caramel eggs milk flour oil sugar cocoa fruit caramel eggs milk flour oil milk eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
-    fruit caramel chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
-    fruit caramel chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
-    fruit caramel eggs milk flour oil sugar cocoa fruit caramel eggs milk flour oil milk eggs milk flour oil sugar cocoa cream chocolate fruit flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
-    milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
-    milk flour oil sugar cocoa cream chocolate caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel
-    eggs milk flour sugar cocoa cream chocolate chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk fruit caramel eggs milk fruit caramel eggs
-    oil sugar cocoa cream chocolate chocolate fruit caramel eggs milk flour chocolate fruit caramel eggs milk flour fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk flour oil sugar cocoa cream chocolate fruit caramel eggs milk fruit caramel eggs milk fruit caramel eggs
+
   </p>
     <h1>KAMA Cakes</h1>
     <p v-if="error" class="error">{{error}}</p>
     <div class="cakes">
-      <div v-for="cake in APIData" :key="cake.id" class="cakeList">
+      <div v-for="item in pageOfItems" :key="item.id" class="cakeList">
       <div class="cake">
-        <h3>{{cake.name}}</h3>
-        <p>{{cake.description}}</p>
-        <p>Price: {{cake.price}} CZK</p>
-        <router-link :to="'/cakes/' + cake.id"><img :src="`/img/`+ cake.img" alt="picture"></router-link>
-        <button v-on:click="add(cake.id)">+</button>
-        <button v-if="admin === true" id="button"><router-link :to="'/cakes/admin/update/' + cake.id">&#9998;</router-link></button>
+        <h3>{{item.name}}</h3>
+        <p>{{item.description}}</p>
+        <p>Price: {{item.price}} CZK</p>
+        <router-link :to="'/cakes/' + item.id"><img :src="`/img/`+ item.img" alt="picture"></router-link>
+        <button v-on:click="add(item.id)">+</button>
+        <button v-if="admin === true" id="button"><router-link :to="'/cakes/admin/update/' + item.id">&#9998;</router-link></button>
       </div>
-
       </div>
+      <div class="page">
+          <jw-pagination :pageSize=6 :items="APIData" @changePage="onChangePage"></jw-pagination>
+        </div>
     </div>
   </div>
 </template>
@@ -61,7 +54,8 @@ export default {
   },
   data(){
     return {
-      error: ''
+      error: '',
+      pageOfItems: []
     }
   },
   components: {
@@ -90,6 +84,10 @@ export default {
           .catch((err) => {
             this.error = err.response.data.detail
           } )
+    },
+    onChangePage(pageOfItems) {
+      // update page of items
+      this.pageOfItems = pageOfItems;
     }
   }
 }
@@ -98,7 +96,7 @@ export default {
 <style scoped>
 #container{
   width: 100%;
-  min-height: 170%;
+  min-height: 105%;
   position: absolute;
   z-index: -1;
   background: #232526;  /* fallback for old browsers */
@@ -156,6 +154,7 @@ button:hover{
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 .background{
+  margin-top: 60px;
   position: absolute;
   color: #715e74;
   z-index: -1;
@@ -184,5 +183,8 @@ a:hover{
   background-color: lightseagreen;
   transform: scaleX(-1);
   margin-left: 5px;
+}
+.page{
+  text-align: center;
 }
 </style>

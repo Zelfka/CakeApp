@@ -25,23 +25,23 @@
       <h1>Update your profile</h1>
        <p class="error" v-if="error">{{error}}</p>
         <form v-on:submit.prevent="update">
-          <div>
+          <div class="input">
             <label for="name">First name:</label>
             <input type="text"  v-model="firstName" placeholder="Enter you first name" id="name">
           </div>
-          <div>
+          <div class="input">
             <label for="lastName">Last name:</label>
             <input type="text"  v-model="lastName" placeholder="Enter your last name" id="lastName">
           </div>
-          <div>
+          <div class="input">
             <label for="phone">Phone number:</label>
-            <input type="number"  v-model="phone" placeholder="Enter your phone" id="phone">
+            <input type="tel"  v-model="phone" placeholder="+420 777 777 777" id="phone">
           </div>
-          <div>
+          <div class="input">
             <label for="e_mail">E-mail address:</label>
             <input type="email"  v-model="email" placeholder="Enter your email address" id="e_mail">
           </div>
-          <div>
+          <div class="input">
             <label for="address">Street and street number:</label>
             <input type="text"  v-model="street" placeholder="Enter your street and street number" id="address">
           </div>
@@ -49,7 +49,7 @@
             <label for="city">City:</label>
             <input type="text"  v-model="city" placeholder="Enter your city" id="city">
           </div>
-          <div>
+          <div class="input">
             <label for="zip">Zip code:</label>
              <input type="number"  v-model="zipCode" placeholder="Enter your zip code" id="zip">
           </div>
@@ -168,11 +168,11 @@ form{
 }
 label {
   display: inline-block;
-  width: 40%;
+  width: 50%;
   font-size: medium;
 }
 input{
-  width: 50%;
+  width: 40%;
   background-color: inherit;
   font-family: 'Bad Script', cursive;
   color: white;

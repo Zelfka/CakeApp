@@ -4,8 +4,10 @@ import router from './routes'
 import store from './store.js'
 import IdleVue from 'idle-vue'
 import moment from 'moment'
-const eventsHub = new Vue()
+import JwPagination from 'jw-vue-pagination'
 
+const eventsHub = new Vue()
+Vue.component('jw-pagination', JwPagination);
 Vue.use(IdleVue, {
   eventEmitter: eventsHub,
   idleTime: 1800000

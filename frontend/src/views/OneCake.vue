@@ -31,6 +31,7 @@
     <p v-else>Eggs free: No</p>
     <p>Price: {{APIData.price}} CZK</p>
     <img v-if="APIData.img" :src="`/img/`+ APIData.img" width=600 height=400 alt="picture">
+
   </div>
 </div>
 </template>
